@@ -55,14 +55,12 @@
   .hero-grad-b { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.7), rgba(0,0,0,.2), rgba(0,0,0,.9)); }
   .hero-grad-r { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,.6), transparent, rgba(0,0,0,.3)); }
 
-  /* Adjusted to center the copy vertically, moving it up from the bottom */
   .hero-copy {
     position: relative; z-index: 10; height: 100%;
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 4rem 1.5rem 0 1.5rem; max-width: 56rem;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 1.5rem 5rem 1.5rem; max-width: 56rem;
   }
-  @media (min-width: 768px) { .hero-copy { padding: 4rem 4rem 0 4rem; } }
-  
+  @media (min-width: 768px) { .hero-copy { padding: 0 4rem 6rem 4rem; } }
   .eyebrow {
     display: inline-block; color: #FF8C00; font-size: 10px;
     letter-spacing: .4em; text-transform: uppercase; margin-bottom: 1rem;
@@ -77,9 +75,7 @@
   }
   @media (min-width: 768px) { .hero p { font-size: 1.125rem; } }
   .hero p .hl { color: #fff; }
-  
   .hero-actions { margin-top: 2.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
-  
   .btn-primary {
     display: inline-flex; align-items: center; gap: .5rem;
     background: #FF6347; color: #000; text-decoration: none;
@@ -88,7 +84,6 @@
     transition: all .3s ease;
   }
   .btn-primary:hover { background: #FF8C00; transform: translateY(-2px); }
-  
   .btn-ghost {
     color: rgba(255,255,255,.7); text-decoration: none;
     font-size: .875rem; letter-spacing: .05em;
@@ -97,7 +92,6 @@
     transition: color .3s;
   }
   .btn-ghost:hover { color: #fff; }
-  
   .scroll-hint {
     position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
     z-index: 10; color: rgba(255,255,255,.4);
@@ -163,12 +157,45 @@
 </head>
 <body>
   <section class="hero">
-    <img class="hero-bg" src="https://base44.com" alt="Destiny Comics key art">
+    <img class="hero-bg" src="https://media.base44.com/images/public/6a8a8ef0d2dd2a272096d20a/2b5222d7b_background.png" alt="Destiny Comics key art">
     <div class="hero-grad-b"></div>
     <div class="hero-grad-r"></div>
-    <div class="hero-copy">
-      <p>Applesauce Studios is a premier comic book packaging studio and independent imprint founded by writer and creator Joseph Cacchiani. Built on the classic studio tradition, Applesauce Studios serves as the creative engine for Cacchiani’s original scripts and graphic fiction. Operating as a unified bullpen, the studio collaborates with a handpicked roster of exciting new talent and experienced working professionals who are already making their mark in the comic book industry. Together with this elite team of illustrators, colorists, and letterers, Applesauce Studios transforms high concept, character driven narratives into beautifully realized, high end sequential art.</p>
+ <div class="hero-copy">
+     <p>Applesauce Studios is a premier comic book packaging studio and independent imprint founded by writer and creator Joseph Cacchiani. Built on the classic studio tradition, Applesauce Studios serves as the creative engine for Cacchiani’s original scripts and graphic fiction. Operating as a unified bullpen, the studio collaborates with a handpicked roster of exciting new talent and experienced working professionals who are already making their mark in the comic book industry. Together with this elite team of illustrators, colorists, and letterers, Applesauce Studios transforms high concept, character driven narratives into beautifully realized, high end sequential art.</p>
+      <div class="hero-actions">
+        <a class="btn-primary ui" href="#contact">&#9993; Contact for Info</a>
+      </div>
+    </div>
+
+    <div class="scroll-hint ui">Scroll</div>
+  </section>
+  <section class="contact" id="contact">
+    <div class="contact-bg"><img src="https://media.base44.com/images/public/6a8a8ef0d2dd2a272096d20a/2b5222d7b_background.png" alt=""></div>
+    <div class="contact-inner">
+      <div class="line-c"></div>
+      <span class="eyebrow-c ui">Contact</span>
+      <h2></h2>
+      <p>For publishing, retail orders, press, or collaboration inquiries, reach out directly.</p>
+      <a class="email-btn ui" href="mailto:applesaucestudios1004@gmail.com">&#9993; applesaucestudios1004@gmail.com</a>
+      <p class="copyright ui">&copy; 2026 Applesauce Studios</p>
     </div>
   </section>
+
+<script>
+  const topbar = document.getElementById('topbar');
+  window.addEventListener('scroll', function () {
+    topbar.classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  const io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e, i) {
+      if (e.isIntersecting) {
+        setTimeout(function () { e.target.classList.add('in'); }, i * 120);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('[data-card]').forEach(function (el) { io.observe(el); });
+</script>
 </body>
 </html>
