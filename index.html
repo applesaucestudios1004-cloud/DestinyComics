@@ -1,1 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Applesauce Studios</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #050510;
+    color: #fff;
+    font-family: Georgia, 'Times New Roman', serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  .ui { font-family: 'Arial Black', Impact, sans-serif; }
 
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+    transition: all .5s ease;
+    padding: 0 1.5rem;
+    height: 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .topbar.scrolled {
+    background: rgba(0,0,0,.6);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+  .brand { font-size: 11px; letter-spacing: .4em; text-transform: uppercase; font-weight: 900; }
+  .brand span { color: #FF8C00; }
+  .topbar a.contact-link {
+    display: none; align-items: center; gap: .5rem;
+    color: rgba(255,255,255,.7); text-decoration: none;
+    font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+    transition: color .3s;
+  }
+  .topbar a.contact-link:hover { color: #fff; }
+  @media (min-width: 640px) { .topbar a.contact-link { display: flex; } }
+
+  .hero {
+    position: relative; height: 100vh; min-height: 640px; width: 100%; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    animation: breathe 28s ease-in-out infinite;
+    will-change: transform;
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1.15); }
+    50% { transform: scale(1.22); }
+  }
+  .hero-grad-b { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.7), rgba(0,0,0,.2), rgba(0,0,0,.9)); }
+  .hero-grad-r { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,.6), transparent, rgba(0,0,0,.3)); }
+
+  .hero-copy {
+    position: relative; z-index: 10; height: 100%;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 1.5rem 5rem 1.5rem; max-width: 56rem;
+  }
+  @media (min-width: 768px) { .hero-copy { padding: 0 4rem 6rem 4rem; } }
+  .eyebrow {
+    display: inline-block; color: #FF8C00; font-size: 10px;
+    letter-spacing: .4em; text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .hero h1 {
+    color: #fff; line-height: 1.05; max-width: 42rem;
+    font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 400;
+  }
+  .hero p {
+    margin-top: 1.5rem; color: rgba(255,255,255,.7);
+    font-size: 1rem; max-width: 36rem; line-height: 1.7;
+  }
+  @media (min-width: 768px) { .hero p { font-size: 1.125rem; } }
+  .hero p .hl { color: #fff; }
+  .hero-actions { margin-top: 2.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: #FF6347; color: #000; text-decoration: none;
+    padding: .875rem 1.75rem; border-radius: 9999px;
+    font-size: .875rem; letter-spacing: .05em; font-weight: 900;
+    transition: all .3s ease;
+  }
+  .btn-primary:hover { background: #FF8C00; transform: translateY(-2px); }
+  .btn-ghost {
+    color: rgba(255,255,255,.7); text-decoration: none;
+    font-size: .875rem; letter-spacing: .05em;
+    text-decoration: underline; text-underline-offset: 4px;
+    text-decoration-color: rgba(255,255,255,.3);
+    transition: color .3s;
+  }
+  .btn-ghost:hover { color: #fff; }
+  .scroll-hint {
+    position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+    z-index: 10; color: rgba(255,255,255,.4);
+    font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: .4; } 50% { opacity: .8; } }
+
+  .status {
+    position: relative; padding: 6rem 1.5rem;
+    background: #070710;
+  }
+  @media (min-width: 768px) { .status { padding: 8rem 4rem; } }
+  .status-inner { max-width: 64rem; margin: 0 auto; }
+  .section-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; }
+  .section-head .line { width: 2.5rem; height: 1px; background: #FF8C00; }
+  .section-head .label { color: #FF8C00; font-size: 10px; letter-spacing: .4em; text-transform: uppercase; }
+  .cards { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+  @media (min-width: 768px) { .cards { grid-template-columns: 1fr 1fr; } }
+  .card {
+    position: relative; padding: 2rem; border-radius: .5rem;
+    border: 1px solid rgba(255,255,255,.1);
+    background: linear-gradient(to bottom right, rgba(255,255,255,.04), transparent);
+    opacity: 0; transform: translateY(24px);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  .card.in { opacity: 1; transform: translateY(0); }
+  .card-head { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.25rem; }
+  .dot { width: .5rem; height: .5rem; border-radius: 9999px; }
+  .dot.ready { background: #00ff88; box-shadow: 0 0 10px rgba(0,255,136,.6); }
+  .dot.soon  { background: #9333ea; box-shadow: 0 0 10px rgba(147,51,234,.6); }
+  .card-tag { font-size: 10px; letter-spacing: .3em; text-transform: uppercase; }
+  .card-tag.ready { color: #00ff88; }
+  .card-tag.soon  { color: #9333ea; }
+  .card h3 { color: #fff; font-size: 1.5rem; margin-bottom: .75rem; font-weight: 400; }
+  .card p { color: rgba(255,255,255,.6); font-size: .875rem; line-height: 1.7; }
+
+  .contact {
+    position: relative; padding: 6rem 1.5rem; overflow: hidden;
+  }
+  @media (min-width: 768px) { .contact { padding: 8rem 4rem; } }
+  .contact-bg { position: absolute; inset: 0; opacity: .2; }
+  .contact-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+  .contact-bg::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,.8); }
+  .contact-inner { position: relative; max-width: 48rem; margin: 0 auto; text-align: center; }
+  .contact .line-c { width: 2.5rem; height: 1px; background: #FF8C00; margin: 0 auto 1.5rem; }
+  .contact .eyebrow-c { display: block; color: #FF8C00; font-size: 10px; letter-spacing: .4em; text-transform: uppercase; margin-bottom: 1.5rem; }
+  .contact h2 { color: #fff; margin-bottom: 1.5rem; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; }
+  .contact p { color: rgba(255,255,255,.6); max-width: 36rem; margin: 0 auto 2.5rem; font-size: .875rem; line-height: 1.7; }
+  @media (min-width: 768px) { .contact p { font-size: 1rem; } }
+  .email-btn {
+    display: inline-flex; align-items: center; gap: .75rem;
+    background: rgba(255,255,255,.05); color: #fff; text-decoration: none;
+    border: 1px solid rgba(255,255,255,.15);
+    padding: 1rem 2rem; border-radius: 9999px;
+    font-size: .875rem; letter-spacing: .05em; font-weight: 900;
+    transition: all .3s ease;
+  }
+  @media (min-width: 768px) { .email-btn { font-size: 1rem; } }
+  .email-btn:hover { background: #FF6347; color: #000; border-color: #FF6347; transform: translateY(-2px); }
+  .copyright { margin-top: 4rem; color: rgba(255,255,255,.3); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+  <div class="topbar" id="topbar">
+    <span class="brand ui">Applesauce<span> Studios</span></span>
+    <a class="contact-link ui" href="#contact">Contact &#8599;</a>
+  </div>
+
+  <section class="hero">
+    <img class="hero-bg" src="https://media.base44.com/images/public/6a8a8ef0d2dd2a272096d20a/2b5222d7b_background.png" alt="Destiny Comics key art">
+    <div class="hero-grad-b"></div>
+    <div class="hero-grad-r"></div>
+
+    <div class="hero-copy">
+      <span class="eyebrow ui">Independent Comic Book Studio</span>
+      <h1>A completed graphic novel, and the next chapter already on the horizon.</h1>
+      <p>Applesauce Studios is an independent comic book studio. Our debut graphic novel is finished and available for review &mdash; and <span class="hl">Destiny Comics</span>, an upcoming anthology series, is now in production.</p>
+      <div class="hero-actions">
+        <a class="btn-primary ui" href="#contact">&#9993; Contact for Info</a>
+        <a class="btn-ghost" href="#about">Learn more</a>
+      </div>
+    </div>
+
+    <div class="scroll-hint ui">Scroll</div>
+  </section>
+
+  <section class="status" id="about">
+    <div class="status-inner">
+      <div class="section-head">
+        <div class="line"></div>
+        <span class="label ui">Studio Status</span>
+      </div>
+      <div class="cards">
+        <div class="card" data-card>
+          <div class="card-head">
+            <span class="dot ready"></span>
+            <span class="card-tag ready ui">Completed</span>
+          </div>
+          <h3>Debut Graphic Novel</h3>
+          <p>Our first full-length graphic novel is finished and ready for review. Publishers, retailers, and collaborators can reach out for sample pages, pitch decks, and acquisition details.</p>
+        </div>
+        <div class="card" data-card>
+          <div class="card-head">
+            <span class="dot soon"></span>
+            <span class="card-tag soon ui">In Production</span>
+          </div>
+          <h3>Destiny Comics</h3>
+          <p>An upcoming anthology series set in the world of Destiny &mdash; new stories, new characters, and a serialized format. Currently in development; early inquiries welcome.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="contact-bg"><img src="https://media.base44.com/images/public/6a8a8ef0d2dd2a272096d20a/2b5222d7b_background.png" alt=""></div>
+    <div class="contact-inner">
+      <div class="line-c"></div>
+      <span class="eyebrow-c ui">Contact</span>
+      <h2>Let's talk about the work.</h2>
+      <p>For publishing, retail orders, press, or collaboration inquiries, reach out directly.</p>
+      <a class="email-btn ui" href="mailto:applesaucestudios1004@gmail.com">&#9993; applesaucestudios1004@gmail.com</a>
+      <p class="copyright ui">&copy; 2026 Applesauce Studios</p>
+    </div>
+  </section>
+
+<script>
+  const topbar = document.getElementById('topbar');
+  window.addEventListener('scroll', function () {
+    topbar.classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  const io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e, i) {
+      if (e.isIntersecting) {
+        setTimeout(function () { e.target.classList.add('in'); }, i * 120);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('[data-card]').forEach(function (el) { io.observe(el); });
+</script>
+</body>
+</html>
