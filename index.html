@@ -57,34 +57,34 @@
 
   .hero-copy {
     position: relative; z-index: 10; height: 100%;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 0 1.5rem 5rem 1.5rem; max-width: 56rem;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 4rem 1.5rem 0 1.5rem; max-width: 56rem;
   }
-  @media (min-width: 768px) { .hero-copy { padding: 0 4rem 6rem 4rem; } }
+  @media (min-width: 768px) { .hero-copy { padding: 4rem 4rem 0 4rem; } }
+  
   .eyebrow {
     display: inline-block; color: #FF8C00; font-size: 10px;
     letter-spacing: .4em; text-transform: uppercase; margin-bottom: 1rem;
   }
   .hero h1 {
     color: #fff; line-height: 1.05; max-width: 42rem;
-    font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 400;
+    font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 400; margin-bottom: 1rem;
   }
   .hero p {
-    margin-top: 1.5rem; color: rgba(255,255,255,.7);
-    font-size: 1rem; max-width: 36rem; line-height: 1.7;
+    color: rgba(255,255,255,.85);
+    font-size: 1rem; max-width: 44rem; line-height: 1.8;
   }
-  @media (min-width: 768px) { .hero p { font-size: 1.125rem; } }
- .hero-copy {
-  position: relative; z-index: 10; height: 100%;
-  display: flex; flex-direction: column; justify-content: center; /* Changed from flex-end to center */
-  padding: 4rem 1.5rem 0 1.5rem; max-width: 56rem; /* Shifted padding away from the bottom */
-}
-@media (min-width: 768px) { .hero-copy { padding: 4rem 4rem 0 4rem; } }
-
+  @media (min-width: 768px) { .hero p { font-size: 1.15rem; } }
+  
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: #FF6347; color: #000; text-decoration: none;
+    padding: .875rem 1.75rem; border-radius: 9999px;
     font-size: .875rem; letter-spacing: .05em; font-weight: 900;
     transition: all .3s ease;
   }
   .btn-primary:hover { background: #FF8C00; transform: translateY(-2px); }
+  
   .btn-ghost {
     color: rgba(255,255,255,.7); text-decoration: none;
     font-size: .875rem; letter-spacing: .05em;
@@ -93,6 +93,9 @@
     transition: color .3s;
   }
   .btn-ghost:hover { color: #fff; }
+  
+  .hero-actions { margin-top: 2.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+  
   .scroll-hint {
     position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
     z-index: 10; color: rgba(255,255,255,.4);
@@ -110,16 +113,15 @@
   .section-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; }
   .section-head .line { width: 2.5rem; height: 1px; background: #FF8C00; }
   .section-head .label { color: #FF8C00; font-size: 10px; letter-spacing: .4em; text-transform: uppercase; }
-  .cards { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+  
+  .cards { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 4rem; }
   @media (min-width: 768px) { .cards { grid-template-columns: 1fr 1fr; } }
+  
   .card {
     position: relative; padding: 2rem; border-radius: .5rem;
     border: 1px solid rgba(255,255,255,.1);
     background: linear-gradient(to bottom right, rgba(255,255,255,.04), transparent);
-    opacity: 0; transform: translateY(24px);
-    transition: opacity .8s ease, transform .8s ease;
   }
-  .card.in { opacity: 1; transform: translateY(0); }
   .card-head { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.25rem; }
   .dot { width: .5rem; height: .5rem; border-radius: 9999px; }
   .dot.ready { background: #00ff88; box-shadow: 0 0 10px rgba(0,255,136,.6); }
@@ -130,13 +132,17 @@
   .card h3 { color: #fff; font-size: 1.5rem; margin-bottom: .75rem; font-weight: 400; }
   .card p { color: rgba(255,255,255,.6); font-size: .875rem; line-height: 1.7; }
 
+  .team-section { margin-top: 4rem; }
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+  .team-member { padding: 1.5rem; border: 1px solid rgba(255,255,255,.05); background: rgba(255,255,255,.01); border-radius: .25rem; }
+  .team-member h4 { font-size: 1.1rem; color: #fff; font-weight: 400; margin-bottom: .25rem; }
+  .team-member p { font-size: .85rem; color: #FF8C00; letter-spacing: .1em; text-transform: uppercase; }
+
   .contact {
     position: relative; padding: 6rem 1.5rem; overflow: hidden;
+    background: #050510;
   }
   @media (min-width: 768px) { .contact { padding: 8rem 4rem; } }
-  .contact-bg { position: absolute; inset: 0; opacity: .2; }
-  .contact-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
-  .contact-bg::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,.8); }
   .contact-inner { position: relative; max-width: 48rem; margin: 0 auto; text-align: center; }
   .contact .line-c { width: 2.5rem; height: 1px; background: #FF8C00; margin: 0 auto 1.5rem; }
   .contact .eyebrow-c { display: block; color: #FF8C00; font-size: 10px; letter-spacing: .4em; text-transform: uppercase; margin-bottom: 1.5rem; }
@@ -157,46 +163,54 @@
 </style>
 </head>
 <body>
+
+  <div class="topbar">
+    <div class="brand class=ui">Applesauce <span>Studios</span></div>
+    <a href="#contact" class="contact-link ui">Get In Touch</a>
+  </div>
+
   <section class="hero">
-    <img class="hero-bg" src="https://media.base44.com/images/public/6a8a8ef0d2dd2a272096d20a/2b5222d7b_background.png" alt="Destiny Comics key art">
+    <img class="hero-bg" src="https://media.base44.com/images/public/6a8a8ef0d2dd2a272096d20a/2b5222d7b_background.png" alt="Applesauce Studios key art">
     <div class="hero-grad-b"></div>
     <div class="hero-grad-r"></div>
- <div class="hero-copy">
-     <p>Applesauce Studios is a premier comic book packaging studio and independent imprint founded by writer and creator Joseph Cacchiani. Built on the classic studio tradition, Applesauce Studios serves as the creative engine for Cacchiani’s original scripts and graphic fiction. Operating as a unified bullpen, the studio collaborates with a handpicked roster of exciting new talent and experienced working professionals who are already making their mark in the comic book industry. Together with this elite team of illustrators, colorists, and letterers, Applesauce Studios transforms high concept, character driven narratives into beautifully realized, high end sequential art.</p>
-      <div class="hero-actions">
-        <a class="btn-primary ui" href="#contact">&#9993; Contact for Info</a>
+    <div class="hero-copy">
+      <span class="eyebrow ui">Independent Comic Imprint</span>
+      <h1>Applesauce Studios</h1>
+      <p>Applesauce Studios is a premier comic book packaging studio and independent imprint founded by writer and creator <strong>Joseph Cacchiani</strong>. Built on the classic studio tradition, Applesauce Studios serves as the creative engine for Cacchiani’s original scripts and graphic fiction. Operating as a unified bullpen, the studio collaborates with a handpicked roster of exciting new talent and experienced working professionals who are already making their mark in the comic book industry. Together with this elite team of illustrators, colorists, and letterers, Applesauce Studios transforms <strong>high-concept, character-driven narratives</strong> into beautifully realized, high-end sequential art.</p>
+      <div class="hero-actions ui">
+        <a href="#catalog" class="btn-primary">View The Catalog</a>
+        <a href="#contact" class="btn-ghost">Contact Studio</a>
       </div>
     </div>
-
-    <div class="scroll-hint ui">Scroll</div>
-  </section>
-  <section class="contact" id="contact">
-    <div class="contact-bg"><img src="https://media.base44.com/images/public/6a8a8ef0d2dd2a272096d20a/2b5222d7b_background.png" alt=""></div>
-    <div class="contact-inner">
-      <div class="line-c"></div>
-      <span class="eyebrow-c ui">Contact</span>
-      <h2></h2>
-      <p>For publishing, retail orders, press, or collaboration inquiries, reach out directly.</p>
-      <a class="email-btn ui" href="mailto:applesaucestudios1004@gmail.com">&#9993; applesaucestudios1004@gmail.com</a>
-      <p class="copyright ui">&copy; 2026 Applesauce Studios</p>
-    </div>
+    <div class="scroll-hint ui">Scroll Down</div>
   </section>
 
-<script>
-  const topbar = document.getElementById('topbar');
-  window.addEventListener('scroll', function () {
-    topbar.classList.toggle('scrolled', window.scrollY > 30);
-  });
+  <section id="catalog" class="status">
+    <div class="status-inner">
+      
+      <div class="section-head">
+        <div class="line"></div>
+        <div class="label ui">The Production Catalog</div>
+      </div>
+      
+      <div class="cards">
+        <div class="card">
+          <div class="card-head">
+            <div class="dot ready"></div>
+            <div class="card-tag ready ui">Completed</div>
+          </div>
+          <h3>[Graphic Novel Title]</h3>
+          <p>Our flagship 104-page standalone graphic novel. A complete, self-contained cinematic story meticulously built by our core creative team.</p>
+        </div>
 
-  const io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e, i) {
-      if (e.isIntersecting) {
-        setTimeout(function () { e.target.classList.add('in'); }, i * 120);
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.2 });
-  document.querySelectorAll('[data-card]').forEach(function (el) { io.observe(el); });
-</script>
-</body>
-</html>
+        <div class="card">
+          <div class="card-head">
+            <div class="dot soon"></div>
+            <div class="card-tag soon ui">In Bullpen</div>
+          </div>
+          <h3>Applesauce Studios Presents</h3>
+          <p>A premier showcase anthology book featuring highly anticipated standalone stories from our powerhouse lineup of working comic book professionals.</p>
+        </div>
+      </div>
+
+      <div class="team-section">
